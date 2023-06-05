@@ -1,0 +1,8 @@
+InquirerPy
+requests
+selenium
+webdriver-manager
+loguru
+plyer
+dbus-python
+tqdm
