@@ -3,5 +3,4 @@ requests
 selenium
 webdriver-manager
 loguru
-plyer
 tqdm
