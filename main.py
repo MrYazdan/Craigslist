@@ -9,7 +9,7 @@ from datetime import datetime
 from InquirerPy import prompt
 from config import variables, selectors
 from config.handlers import NotifyHandler
-from core.utils import get_browser, querySelector,  querySelectorAll, removeElement
+from core.utils import get_browser, querySelector,  querySelectorAll, removeElement, click
 
 # configure logging:
 logger.remove()
@@ -53,9 +53,10 @@ if __name__ == '__main__':
     if btn.get_attribute('disabled'):
         page_counts = 1
     else:
-        btn.click()
+        click(btn, browser)
         sleep(2)
-        page_counts = browser.current_url.replace("gallery~", "||").split("||")[-1].replace("~", "||").split("||")[0]
+        page_counts = int(querySelectorAll(selectors.page_counts, browser)[-1].text.replace(",", "").split(" of ")[-1])
+        page_counts = page_counts // 120 + 1
 
         browser.get(main_url)
 
@@ -93,7 +94,7 @@ if __name__ == '__main__':
                         "link": querySelector(selectors.ads_a_tag, el).get_attribute("href"),
                     })
             ads_len = len(ads_list)
-        except:
+        except Exception as e:
             logger.error(f"⚠：Retrying in 3 seconds...")
             sleep(_try)
             _try -= 1
@@ -127,7 +128,7 @@ if __name__ == '__main__':
 
             # get normal datetime from posted and updated field:
             if times := querySelectorAll(selectors.ad_datetime_field, browser):
-                times[0].click()
+                click(times[0], browser)
 
             data["link"] = browser.current_url
             data["id"] = tmp.split(".")[0] if '.' in (tmp := browser.current_url.split("/")[-1]) else None
