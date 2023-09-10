@@ -1,3 +1,4 @@
+from pathlib import Path
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from os import system as terminal, name as os_name
@@ -11,14 +12,19 @@ def clear():
 
 def get_browser(url: str):
     from selenium import webdriver
-    from selenium.webdriver.chrome.service import Service
-    from webdriver_manager.chrome import ChromeDriverManager
+    from selenium.webdriver.chrome.options import Options
+
     from time import sleep
 
-    options = webdriver.ChromeOptions()
-    options.add_argument('headless')
+    chromedriver_path = 'chromedriver.exe'
+    chromedriver_path = Path(__file__).parent.parent / chromedriver_path
+    window_size = "1920,1080"
 
-    browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+    options = Options()
+    options.add_argument("--window-size=%s" % window_size)
+    options.add_argument('--headless')
+
+    browser = webdriver.Chrome(executable_path=chromedriver_path, options=options)
     browser.get(url)
 
     sleep(1)
