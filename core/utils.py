@@ -20,13 +20,17 @@ def get_browser(url: str):
     from time import sleep
 
     options = webdriver.ChromeOptions()
-    options.add_argument('headless')
+    # options.add_argument('headless')
 
     browser = webdriver.Chrome(service=Service(executable_path=chromedriver_path), options=options)
     browser.get(url)
 
     sleep(1)
     return browser
+
+
+def click(element: webdriver, browser: webdriver):
+    browser.execute_script("arguments[0].click()", element)
 
 
 @safe(None)

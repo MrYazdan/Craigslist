@@ -1,8 +1,9 @@
 ads_list = "ol .gallery-card"
 last_page_button = ".cl-last-page"
+page_counts = ".cl-page-number"
 no_ads_button = '.no-results button.change-search-area'
 ads_a_tag = "a.main"
-ads_title = "a.titlestring"
+ads_title = "a.posting-title"
 
 ad_price = "span.price"
 ad_volume = "span.housing"
