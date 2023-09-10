@@ -12,19 +12,17 @@ def clear():
 
 def get_browser(url: str):
     from selenium import webdriver
-    from selenium.webdriver.chrome.options import Options
+    from selenium.webdriver.chrome.service import Service
+
+    base_dir = Path(__file__).parent.parent
+    chromedriver_path = str(base_dir / 'chromedriver.exe')
 
     from time import sleep
 
-    chromedriver_path = 'chromedriver.exe'
-    chromedriver_path = Path(__file__).parent.parent / chromedriver_path
-    window_size = "1920,1080"
+    options = webdriver.ChromeOptions()
+    options.add_argument('headless')
 
-    options = Options()
-    options.add_argument("--window-size=%s" % window_size)
-    options.add_argument('--headless')
-
-    browser = webdriver.Chrome(executable_path=chromedriver_path, options=options)
+    browser = webdriver.Chrome(service=Service(executable_path=chromedriver_path), options=options)
     browser.get(url)
 
     sleep(1)
