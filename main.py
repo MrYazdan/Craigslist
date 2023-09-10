@@ -167,7 +167,7 @@ if __name__ == '__main__':
 
     # save the data into json file:
     logger.info("Saving data into json file")
-    filename = '{:%Y:%m:%d_%H:%M:%S}_{}'.format(datetime.now(), uuid4().clock_seq)
+    filename = '{:%Y-%m-%d_%H-%M-%S}_{}'.format(datetime.now(), uuid4().clock_seq)
 
     with open(f"{filename}.json", "w") as json_file:
         json.dump(data_list, json_file, indent=4, ensure_ascii=False)
